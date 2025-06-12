@@ -1,10 +1,13 @@
 {
   "expo": {
-    "name": "Proactively",
-    "slug": "Proactively",
+    "extra": {
+      "API_BASE_URL": "http://192.168.1.4:8000"
+    },
+    "name": "proactively",
+    "slug": "proactively",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "../assets/images/icon.png",
     "scheme": "proactively",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,27 +16,26 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true
+        "backgroundColor": "#204CBB"
+      }
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "../assets/images/icon.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-video"
     ],
     "experiments": {
       "typedRoutes": true
