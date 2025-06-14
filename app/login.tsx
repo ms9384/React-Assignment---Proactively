@@ -1,30 +1,39 @@
+// src/screens/login.tsx
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import colours from '@/utils/colours';
+import { scale, verticalScale } from '@/utils/scale';
 
 const icon3 = require('../assets/images/icon-3.png');
 
 export default function LoginScreen() {
   const router = useRouter();
-  const [mail, setMail]       = useState('');
+  const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
   const [hidePass, setHidePass] = useState(true);
 
-  const validateMail = (m: string) => {
-    
-    return /^[^\s@]+@[^\s@]+\.com$/i.test(m);
-  };
+  const validateMail = (m: string) =>
+    /^[^\s@]+@[^\s@]+\.com$/i.test(m);
 
-  const validatePassword = (p: string) => {
-    
-    return /^(?=.*\d)(?=.*[!@#$%^&*]).{6,}$/.test(p);
-  };
+  const validatePassword = (p: string) =>
+    /^(?=.*\d)(?=.*[!@#$%^&*]).{6,}$/.test(p);
 
   const handleLogin = () => {
     if (!validateMail(mail)) {
-      Alert.alert('Invalid Email', 'Email must be in the form user@domain.com');
+      Alert.alert(
+        'Invalid Email',
+        'Email must be in the form user@domain.com'
+      );
       return;
     }
     if (!validatePassword(password)) {
@@ -34,7 +43,6 @@ export default function LoginScreen() {
       );
       return;
     }
-    // both valid:
     router.replace('/home');
   };
 
@@ -71,16 +79,18 @@ export default function LoginScreen() {
           onPress={() => setHidePass(v => !v)}
           style={styles.eyeButton}
         >
-
-        <FontAwesome
+          <FontAwesome
             name={hidePass ? 'eye-slash' : 'eye'}
-            size={20}
+            size={scale(20)}
             color="#7F8A99"
-        />
+          />
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+      <TouchableOpacity
+        style={styles.loginButton}
+        onPress={handleLogin}
+      >
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
     </View>
@@ -90,73 +100,73 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 32,
-    backgroundColor: '#FFFFFF',
+    paddingTop: verticalScale(32),
+    backgroundColor: colours.white,
   },
 
   loginText: {
     color: '#222222',
-    fontSize: 20,
+    fontSize: scale(20),
     fontFamily: 'Inter-SemiBold',
-    marginLeft: 20,
+    marginLeft: scale(20),
   },
 
   proactivelyText: {
     color: colours.blue,
-    fontSize: 33,
+    fontSize: scale(33),
     fontFamily: 'Inter-SemiBold',
-    marginLeft: 20,
-    marginTop: -6,
+    marginLeft: scale(20),
+    marginTop: verticalScale(-6),
   },
 
   icon3_style: {
     alignSelf: 'flex-end',
-    marginRight: 20,
-    marginTop: -30,
-    width: 23,
-    height: 22,
+    marginRight: scale(153),
+    marginTop: verticalScale(-35),
+    width: scale(23),
+    height: verticalScale(22),
   },
 
   subheadingText: {
     color: '#707070',
-    marginLeft: 20,
-    marginTop: 30,
-    fontSize: 13,
+    marginLeft: scale(20),
+    marginTop: verticalScale(30),
+    fontSize: scale(13),
     fontFamily: 'Inter-Regular',
   },
 
   input: {
-    height: 51,
-    marginHorizontal: 20,
+    height: verticalScale(51),
+    marginHorizontal: scale(20),
     borderColor: '#E7E7E7',
     borderWidth: 1,
-    borderRadius: 5,
-    paddingLeft: 15,
-    marginTop: 20,
+    borderRadius: scale(5),
+    paddingLeft: scale(15),
+    marginTop: verticalScale(20),
     fontFamily: 'Inter-Regular',
-    fontSize: 16,
+    fontSize: scale(16),
     color: colours.black,
   },
 
   eyeButton: {
     position: 'absolute',
-    right: 30,
-    top: 35,
+    right: scale(30),
+    top: verticalScale(35),
   },
 
   loginButton: {
     backgroundColor: '#4384E6',
-    borderRadius: 10,
-    height: 54,
-    marginHorizontal: 20,
+    borderRadius: scale(10),
+    height: verticalScale(54),
+    marginHorizontal: scale(20),
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: verticalScale(40),
   },
 
   loginButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
+    color: colours.white,
+    fontSize: scale(16),
     fontFamily: 'Inter-Regular',
   },
 });

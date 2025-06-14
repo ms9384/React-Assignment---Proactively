@@ -1,9 +1,20 @@
+// src/screens/appointment.tsx
 import React from 'react';
-import { SafeAreaView, ScrollView, View, Text, Image, TouchableOpacity, StyleSheet, Linking } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  Linking,
+} from 'react-native';
 import colours from '@/utils/colours';
+import { scale, verticalScale } from '@/utils/scale';
 
-const doc = require('../../assets/images/doc.jpg'); 
-const side_arrow = require('../../assets/images/side-arrow.png')
+const doc = require('../../assets/images/doc.jpg');
+const side_arrow = require('../../assets/images/side-arrow.png');
 const MEETING_URL = 'www.meet.google.com/abc-defa-dwa';
 
 export default function AppointmentScreen() {
@@ -17,9 +28,7 @@ export default function AppointmentScreen() {
         <Image source={doc} style={styles.doc_pfp} />
 
         <Text style={styles.title}>Your upcoming appointment with</Text>
-        <Text style={styles.subtitle}>
-          Laurie Simons, MD, DipABLM
-        </Text>
+        <Text style={styles.subtitle}>Laurie Simons, MD, DipABLM</Text>
 
         <View style={styles.appLabel}>
           <Text style={styles.appLabelText}>Appointment</Text>
@@ -54,125 +63,124 @@ export default function AppointmentScreen() {
 }
 
 const styles = StyleSheet.create({
-    app_container: { 
-        flex: 1, backgroundColor: '#FFFFFF',
-    },
+  app_container: {
+    flex: 1,
+    backgroundColor: colours.white,
+  },
 
-    container: {
-        padding: 20,
-        alignItems: 'center',
-    },
+  container: {
+    padding: scale(20),
+    alignItems: 'center',
+  },
 
-    upcoming: {
-        backgroundColor: '#3A9B78',
-        paddingHorizontal: 8,
-        paddingVertical: 2,
-        borderRadius: 4,
-        alignSelf: 'flex-start',
-    },
+  upcoming: {
+    backgroundColor: '#3A9B78',
+    paddingHorizontal: scale(8),
+    paddingVertical: verticalScale(2),
+    borderRadius: scale(4),
+    alignSelf: 'flex-start',
+  },
 
-    upcomingText: {
-        color: '#FFFFFF',
-        fontFamily: 'Inter-Regular',
-        fontSize: 14,
-        fontWeight: '600',
-    },
+  upcomingText: {
+    color: '#FFFFFF',
+    fontFamily: 'Inter-Regular',
+    fontSize: scale(14),
+  },
 
-    doc_pfp: {
-        width: 105,
-        height: 105,
-        borderRadius: 55,
-        marginTop: 20,
-        marginBottom: 20,
-    },
+  doc_pfp: {
+    width: scale(95),
+    height: verticalScale(105),
+    borderRadius: scale(55),
+    marginTop: verticalScale(20),
+    marginBottom: verticalScale(20),
+  },
 
-    title: {
-        fontSize: 18,
-        color: '#000000',
-        textAlign: 'center',
-        fontFamily: 'Inter-Medium',
-    },
+  title: {
+    fontSize: scale(18),
+    color: '#000000',
+    textAlign: 'center',
+    fontFamily: 'Inter-Medium',
+  },
+  
+  subtitle: {
+    fontSize: scale(16),
+    color: '#707070',
+    marginTop: verticalScale(4),
+    marginBottom: verticalScale(20),
+    textAlign: 'center',
+    fontFamily: 'Inter-Regular',
+  },
 
-    subtitle: {
-        fontSize: 16,
-        color: '#707070',
-        marginTop: 4,
-        marginBottom: 20,
-        textAlign: 'center',
-        fontFamily: 'Inter-Regular',
-    },
+  appLabel: {
+    backgroundColor: '#7A3DB61A',
+    paddingHorizontal: scale(16),
+    paddingVertical: verticalScale(6),
+    borderRadius: scale(2),
+    marginTop: verticalScale(12),
+    marginBottom: verticalScale(5),
+  },
 
-    appLabel: {
-        backgroundColor: '#7A3DB61A',
-        paddingHorizontal: 16,
-        paddingVertical: 6,
-        borderRadius: 2,
-        marginTop: 12,
-        marginBottom: 5,
-    },
+  appLabelText: {
+    color: '#7A3DB6',
+    fontSize: scale(14),
+    fontFamily: 'Inter-Medium',
+  },
 
-    appLabelText: {
-        color: '#7A3DB6',
-        fontSize: 14,
-        fontFamily: 'Inter-Medium',
-    },
+  date_time: {
+    fontSize: scale(14),
+    color: '#707070',
+    fontFamily: 'Inter-Regular',
+    marginTop: verticalScale(12),
+    textAlign: 'center',
+    marginBottom: verticalScale(30),
+  },
 
-    date_time: {
-        fontSize: 14,
-        color: '#707070',
-        fontFamily: 'Inter-Regular',
-        marginTop: 12,
-        textAlign: 'center',
-        marginBottom: 30,
-    },
+  line: {
+    height: 1,
+    backgroundColor: '#ECECEC',
+    alignSelf: 'stretch',
+    marginBottom: verticalScale(20),
+  },
 
-    line: {
-        height: 1,
-        backgroundColor: '#ECECEC',
-        alignSelf: 'stretch',
-        marginBottom: 20,
-    },
+  linkSection: {
+    alignSelf: 'stretch',
+  },
+  
+  linkText: {
+    fontSize: scale(14),
+    color: colours.black,
+    fontFamily: 'Inter-Medium',
+    marginBottom: verticalScale(4),
+  },
 
-    linkSection: {
-        alignSelf: 'stretch',
-    },
+  linkUrl: {
+    fontSize: scale(14),
+    color: '#707070',
+    fontFamily: 'Inter-Regular',
+    textDecorationLine: 'underline',
+  },
 
-    linkText: {
-        fontSize: 16,
-        color: colours.black,
-        fontFamily: 'Inter-Medium',
-        marginBottom: 4,
-    },
+  button: {
+    flexDirection: 'row',
+    backgroundColor: '#4384E6',
+    paddingVertical: verticalScale(14),
+    paddingHorizontal: scale(40),
+    borderRadius: scale(8),
+    marginTop: verticalScale(180),
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
-    linkUrl: {
-        fontSize: 16,
-        color: '#707070',
-        fontFamily: 'Inter-Regular',
-        textDecorationLine: 'underline',
-    },
-
-    button: {
-        backgroundColor: '#4384E6',
-        paddingVertical: 14,
-        paddingHorizontal: 40,
-        borderRadius: 8,
-        marginTop: 150,
-        alignSelf: 'stretch',
-        alignItems: 'center',
-    },
-
-    buttonText: {
-        textAlign: 'center',
-        color: '#FFFFFF',
-        fontSize: 16,
-        fontFamily: 'Inter-Medium',
-        marginLeft: -20,
-    },
-
-    side_arrow: {
-        height: 23,
-        width: 23,
-        marginTop: -23,
-        marginLeft: 120
-    },
+  buttonText: {
+    textAlign: 'center',
+    color: '#FFFFFF',
+    fontSize: scale(16),
+    fontFamily: 'Inter-Medium',
+    marginRight: scale(10),
+  },
+  side_arrow: {
+    height: verticalScale(23),
+    width: scale(23),
+  },
 });

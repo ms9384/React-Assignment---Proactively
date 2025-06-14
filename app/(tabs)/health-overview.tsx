@@ -1,9 +1,11 @@
+// src/app/(tabs)/health-overview.tsx
 import React, { useState, useCallback } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { useRouter, useFocusEffect } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import colours from '@/utils/colours';
+import { scale, verticalScale } from '@/utils/scale';
 
 const overviewTemplate = [
   {
@@ -11,7 +13,6 @@ const overviewTemplate = [
     label: 'Steps',
     updated: 'Updated',
     value: '-',
-    unit: 'steps',
     background: '#E9F0FF',
     colour: '#4F65CB',
     route: '/steps',
@@ -51,10 +52,7 @@ export default function HealthOverview() {
         const updated = await Promise.all(
           overviewTemplate.map(async card => {
             const stored = await AsyncStorage.getItem(card.storeKey);
-            return {
-              ...card,
-              value: stored ?? card.value,
-            };
+            return { ...card, value: stored ?? card.value };
           })
         );
         setCards(updated);
@@ -80,7 +78,7 @@ export default function HealthOverview() {
               <Text style={styles.cardLabel}>{card.label}</Text>
               <FontAwesome
                 name="angle-right"
-                size={18}
+                size={scale(18)}
                 color={card.colour}
               />
             </View>
@@ -91,9 +89,7 @@ export default function HealthOverview() {
               <Text style={[styles.value, { color: card.colour }]}>
                 {card.value}
               </Text>
-              {card.unit && (
-                <Text style={styles.unit}>{card.unit}</Text>
-              )}
+              {card.unit && <Text style={styles.unit}>{card.unit}</Text>}
             </View>
           </TouchableOpacity>
         ))}
@@ -104,72 +100,65 @@ export default function HealthOverview() {
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    paddingHorizontal: 20, 
-    paddingTop: 20, 
-    backgroundColor: '#fff' 
-  },
-  
-  title: { 
-    fontSize: 18, 
-    fontFamily: 'Inter-SemiBold', 
-    color: '#222', 
-    marginBottom: 12 
-  },
-  
-  scrollContent: { 
-    paddingRight: 12, 
+  container: {
+    paddingHorizontal: scale(20),
+    paddingTop: verticalScale(20),
+    backgroundColor: '#fff',
+    marginRight: scale(8),
   },
 
-  card: { 
-    width: 155, 
-    borderRadius: 12, 
-    padding: 16, 
-    marginRight: 12, 
+  title: {
+    fontSize: scale(18),
+    fontFamily: 'Inter-SemiBold',
+    color: '#222',
+    marginBottom: verticalScale(8),
+    marginTop: verticalScale(-15),
   },
 
-  cardHeader: { 
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
-    alignItems: 'center' 
+  scrollContent: {
+    paddingRight: scale(12),
   },
-
-  cardLabel: { 
-    fontSize: 16, 
-    fontFamily: 'Inter-Medium', 
-    color: colours.black 
+  card: {
+    width: scale(155),
+    borderRadius: scale(12),
+    padding: scale(16),
+    marginRight: scale(12),
   },
-
-  updated: { 
-    fontSize: 14, 
-    fontFamily: 'Inter-Medium', 
-    marginTop: 4 
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-
-  valueRow: { 
-    flexDirection: 'row', 
-    alignItems: 'flex-end', 
-    marginTop: 8 
+  cardLabel: {
+    fontSize: scale(16),
+    fontFamily: 'Inter-Medium',
+    color: colours.black,
   },
-
-  value: { 
-    fontSize: 24, 
-    fontFamily: 'Inter-Bold' 
+  updated: {
+    fontSize: scale(14),
+    fontFamily: 'Inter-Medium',
+    marginTop: verticalScale(4),
   },
-
-  unit: { 
-    fontSize: 14, 
-    fontFamily: 'Inter-Medium', 
-    color: '#666', 
-    marginLeft: 4, 
-    marginBottom: 3.5, 
+  valueRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    marginTop: verticalScale(8),
   },
-
-  separator: { 
-    height: 1, 
-    backgroundColor: '#ECECEC', 
-    marginTop: 25, 
-    marginBottom: 15,
+  value: {
+    fontSize: scale(24),
+    fontFamily: 'Inter-Bold',
   },
-
+  unit: {
+    fontSize: scale(14),
+    fontFamily: 'Inter-Medium',
+    color: '#666',
+    marginLeft: scale(4),
+    marginBottom: verticalScale(3.5),
+  },
+  separator: {
+    height: verticalScale(1),
+    backgroundColor: '#ECECEC',
+    marginTop: verticalScale(25),
+    marginBottom: verticalScale(15),
+  },
 });
