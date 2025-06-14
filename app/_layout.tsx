@@ -1,8 +1,11 @@
 // app/_layout.tsx
-import { Slot } from 'expo-router';
+import { Slot, Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
+import GradientScreen from './(tabs)/splash-screen';
+
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -15,13 +18,23 @@ export default function RootLayout() {
     "Inter-SemiBold": require('../assets/fonts/Inter-SemiBold.ttf'),
     "Inter-Thin": require('../assets/fonts/Inter-Thin.ttf'),
   });
+  const [ready, setReady] = useState(false);
+  const [showApp, setShowApp]    = useState(false);
+
 
   useEffect(() => {
-    if (loaded || error) {
-      SplashScreen.hideAsync();
+    if (loaded) {
+      // 1) Hide native splash
+      SplashScreen.hideAsync().then(() => {
+        // 2) Show your React splash for a moment
+        setTimeout(() => setShowApp(true), 500);
+      });
     }
-  }, [loaded, error]);
+  }, [loaded]);
+  
+  if (!showApp) return <GradientScreen />;
 
-  if (!loaded && !error) return null;
-  return <Slot />;
+  return(
+    <Slot />
+  ) 
 }

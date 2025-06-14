@@ -4,9 +4,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import colours from '@/utils/colours';
 
-const icon2 = require("../assets/images/icon-2.png")
+const icon2 = require("../../assets/images/icon-2.png")
 
-export default function App() {
+export default function GradientScreen() {
   return (
     <LinearGradient
       colors={[colours.green, colours.darkBlue]}
@@ -17,7 +17,6 @@ export default function App() {
       <SafeAreaView style={styles.inner}>
         <Image source = {icon2} style={styles.icon2_style}/>
         <Text style={styles.text}>Powered by Proactively</Text>
-        
       </SafeAreaView>
     </LinearGradient>
   );
@@ -45,6 +44,5 @@ const styles = StyleSheet.create({
     position:"absolute",
     width: 94,
     height: 90,
-  }
-
+  },
 });
